@@ -1,21 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-class App extends React.Component {
-  state = {
-    resource: 'posts'
-  }
+const App = () => {
+  // `useState` takes the initial state and returns an array with the current value (which we called `resource` and is analagous to this.state) and a method to change it (which we called `setResource` and is analagous to this.setState)
+  // Calling the method we named `setResource` causes the component to re-render, like setState
+  // Array destructuring
+  const [resource, setResource] = useState('posts')
+  // The above is basically:
+  // const [currentValue, setCurrentValue] = useState(initialValue)
 
-  render() {
-    return (
+  return (
+    <div>
       <div>
-        <div>
-          <button onClick={() => this.setState({ resource: 'posts' })}>Posts</button>
-          <button onClick={() => this.setState({ resource: 'todos' })}>Todos</button>
-        </div>
-        {this.state.resource}
+        <button onClick={() => setResource('posts')}>Posts</button>
+        <button onClick={() => setResource('todos')}>Todos</button>
       </div>
-    )
-  }
+      {resource}
+    </div>
+  )
 }
 
 export default App
