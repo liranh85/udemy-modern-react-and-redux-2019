@@ -1,28 +1,25 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
-class ResourceList extends React.Component {
-  state = {
-    resources: []
+const ResourceList = ({ resource }) => {
+  const [resources, setResources] = useState([])
+
+  const fetchResource = async resource => {
+    const response = await axios.get(`https://jsonplaceholder.typicode.com/${resource}`)
+    setResources(response.data)
   }
 
-  async componentDidMount() {
-    const response = await axios.get(`https://jsonplaceholder.typicode.com/${this.props.resource}`)
-    this.setState({ resources: response.data })
-  }
+  // Analogous to a combination of (componentDidMount + componentDidUpdate) in a class-based component
+  // Calls the callback function if the values in the second argument (the array) have changed
+  // Leave array empty if you want the callback function to be called only once (like componentDidMount)
+  // Don't pass the array at all if you want the callback function to be called on every update (additionally to on component mount), regardless of the difference between prev and current propd
+  useEffect(() => {
+    fetchResource(resource)
+  }, [resource])
 
-  async componentDidUpdate(prevProps) {
-    if (prevProps.resource !== this.props.resource) {
-      const response = await axios.get(`https://jsonplaceholder.typicode.com/${this.props.resource}`)
-      this.setState({ resources: response.data })
-    }
-  }
-
-  render() {
-    return (
-      <div>{this.state.resources.length}</div>
-    )
-  }
+  return (
+    <div>{resources.length}</div>
+  )
 }
 
 export default ResourceList
