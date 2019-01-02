@@ -1,0 +1,10 @@
+# This wasn't part of the course, but makes coding easier and more consistent, especially when used in a team
+# Requires the editorConfig VSCode extension to work
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true
