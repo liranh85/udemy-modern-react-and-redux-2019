@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const ResourceList = ({ resource }) => {
+const useResources = resource => {
   const [resources, setResources] = useState([])
 
   // Analogous to a combination of (componentDidMount + componentDidUpdate) in a class-based component
@@ -14,6 +14,12 @@ const ResourceList = ({ resource }) => {
       setResources(response.data)
     })(resource)
   }, [resource])
+
+  return resources
+}
+
+const ResourceList = ({ resource }) => {
+  const resources = useResources(resource)
 
   return (
     <ul>
